@@ -3,6 +3,8 @@ Gizu
 
 Gizu is visualiation tool for Git. It compute a CLOC on all the commits of a project and display the results into a treemap representation with help of [d3](http://d3js.org/).
 
+![screenshot](http://marmelab.com/gizu/img/gizu.gif)
+
 Installation
 ------------
 
