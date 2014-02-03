@@ -1,7 +1,8 @@
 {
-  "name": "gittod3",
-  "version": "0.0.0",
-  "dependencies": {},
+  "name": "marmelab-gizu",
+  "version": "0.1.0",
+  "dependencies": {
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
@@ -28,7 +29,8 @@
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.2.1",
-    "grunt-karma": "~0.6.2"
+    "grunt-karma": "~0.6.2",
+     "shelljs": "~0.2.6"
   },
   "engines": {
     "node": ">=0.8.0"

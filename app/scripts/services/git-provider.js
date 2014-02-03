@@ -8,8 +8,6 @@ angular.module('gizuApp')
 
     $http.get('/data/index.json').success(function(data, status, headers, config) {
       files = data.files;
-      files.pop();
-
       index = true;
 
       for (var i=0; i<files.length; i++) {
