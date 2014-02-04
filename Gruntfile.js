@@ -378,29 +378,42 @@ module.exports = function (grunt) {
   grunt.task.registerTask('git-import', 'Create cloc files for a git repository', function() {
     var shell = require('shelljs');
     var gitRepository = grunt.option('repository');
+    var step = grunt.option('step') || 1;
+
+    if (step < 1) { step = 1; }
+
     var currentDir = shell.pwd();
     shell.mkdir('-p', '.git-tmp');
     shell.cd('.git-tmp');
-    if (!shell.test('-d', 'gitclone')) { shell.exec('git clone ' + gitRepository + ' gitclone'); }
+
+    if (!shell.test('-d', 'gitclone')) {
+      shell.exec('git clone ' + gitRepository + ' gitclone');
+    }
+
     shell.cd('gitclone');
     shell.rm('-rf',currentDir + '/app/data');
     shell.mkdir('-p', currentDir + '/app/data');
+
     var hashes = shell.exec('git log --format=%h').output.trim().split('\n');
     var json = [];
+
     for (var i=0; i<hashes.length; i++) {
-      shell.exec('git checkout ' + hashes[i]);
-      shell.exec(currentDir +
-        '/bin/cloc .' +
-        ' --quiet --csv --by-file --report-file=' +
-        currentDir +
-        '/app/data/' +
-        i +
-        '-' +
-        hashes[i] +
-        '.cloc'
-      );
-      json.push(i + '-' + hashes[i] + '.cloc');
+      if (i%step === 0) {
+        shell.exec('git checkout ' + hashes[i]);
+        shell.exec(currentDir +
+          '/bin/cloc .' +
+          ' --quiet --csv --by-file --report-file=' +
+          currentDir +
+          '/app/data/' +
+          i +
+          '-' +
+          hashes[i] +
+          '.cloc'
+        );
+        json.push(i + '-' + hashes[i] + '.cloc');
+      }
     }
+
     shell.echo('{ "files": ["' + json.join('","') + '"]}').to(currentDir + '/app/data/index.json');
     shell.cd(currentDir);
     shell.rm('-rf', '.git-tmp');

@@ -14,7 +14,16 @@ Install dependencies :
   bower install
 ```
 
-Then you have to create a dataset for your git repository :
+Create a config file :
+
+```
+  cp app/scripts/services/config.js.dist app/scripts/services/config.js
+```
+
+Create a Dataset
+----------------
+
+Before starting Gizu you need to create a dataset for your git repository :
 
 ```
   grunt git-import --repository=YOUR_GIT_REPOSITORY
@@ -22,19 +31,15 @@ Then you have to create a dataset for your git repository :
 
 For example, YOUR_GIT_REPOSITORY could be `git@github.com:fzaninotto/uptime.git`.
 
-Create a config file :
+
+You can also use the `--step` option if you don't want to process every commits :
 
 ```
-  cp app/scripts/services/config.js.dist app/scripts/services/config.js
+  grunt git-import --repository=YOUR_GIT_REPOSITORY --step=5
 ```
 
-Usage
------
+5 commits will be skipped between each CLOC.
 
-To run the app, just start it with Grunt :
-```
-  grunt serve
-```
 
 Configuration
 -------------
@@ -52,6 +57,23 @@ For example :
         './public'
       ]
   });
+```
+
+Usage
+-----
+
+To run the app, just start it with Grunt :
+```
+  grunt serve
+```
+
+Tests
+-----
+
+To run tests, just do :
+
+```
+  grunt test
 ```
 
 License
